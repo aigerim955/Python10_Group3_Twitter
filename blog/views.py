@@ -10,7 +10,6 @@ from .forms import NewCommentForm, SearchForm
 from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.models import User
 
-
 def user_search(request, ):
     form = SearchForm()
     search = request.GET.get('search', '')
@@ -25,10 +24,10 @@ def user_search(request, ):
     #     form = SearchForm(request.GET)
     #     if form.is_valid():
     #         query = form.cleaned_data['query']
-    #         results = Profile.objects.annotate(
+    #         results = UserAccount.objects.annotate(
     #             search=SearchVector('user',),
     #         ).filter(search=query)
-    #         use = Profile.objects.get(user=query)
+    #         use = UserAccount.objects.get(user=query)
     # return render(request, 'blog/search.html', locals())
 
 

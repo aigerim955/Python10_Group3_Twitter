@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form method="POST" class="col-12 col-md-6 pl-3 pr-3 pl-md-0 pr-md-0">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="mb-3 white-important">
+                Создать новый аккаунт
+            </legend>
+            {{ form | crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-primary" type="submit">Зарегистрироваться</button>
+        </div>
+    </form>
+    <div class="pt-3">
+        <small class="text-muted">
+            У вас уже есть свой аккаунт? <a class="ml-2" href="{% url 'login' %}">Войти</a>
+        </small>
+    </div>
+{% endblock content %}

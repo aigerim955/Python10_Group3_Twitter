@@ -12,23 +12,41 @@ from django.shortcuts import render
 # from account.forms import RegistrationForm
 
 # new
-from django.shortcuts import render, redirect
-from .forms import RegisterForm
 from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+
 # from django.contrib.auth import authenticate, login
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Поздравляем, {username}, вы успешно создали аккаунт!')
             return redirect('login')
     else:
-        form = RegisterForm()
+        form = UserRegisterForm()
     return render(request, 'account/registration.html', {'form': form})
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        uform = UserUpdateForm(request.POST, instance=request.user)
+        pform = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if uform.is_valid() and pform.is_valid():
+            uform.save()
+            pform.save()
+            messages.success(request, f'Account has been updated.')
+            return redirect('profile')
+    else:
+        uform = UserUpdateForm(instance=request.user)
+        pform = ProfileUpdateForm(instance=request.user.profile)
+
+    return render(request, 'users/profile.html', {'uform': uform, 'pform': pform})
 # old
 # User = get_user_model()
 #

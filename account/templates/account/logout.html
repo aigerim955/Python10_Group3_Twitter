@@ -1,0 +1,9 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h3 class="white-important">Вы вышли из своего аккаунта.</h3>
+    <div class="pt-3">
+        <small class="text-muted">
+            Войти заново? <a class="ml-2" href="{% url 'login' %}">Логин</a>
+        </small>
+    </div>
+{% endblock content %}
