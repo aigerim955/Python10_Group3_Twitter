@@ -40,13 +40,13 @@ def profile(request):
         if uform.is_valid() and pform.is_valid():
             uform.save()
             pform.save()
-            messages.success(request, f'Account has been updated.')
+            messages.success(request, f'Профиль был обновлен.')
             return redirect('profile')
     else:
         uform = UserUpdateForm(instance=request.user)
         pform = ProfileUpdateForm(instance=request.user.profile)
 
-    return render(request, 'users/profile.html', {'uform': uform, 'pform': pform})
+    return render(request, 'account/profile.html', {'uform': uform, 'pform': pform})
 # old
 # User = get_user_model()
 #

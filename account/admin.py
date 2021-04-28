@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import UserAccount
+from .models import Profile
 # User = get_user_model()
-admin.site.register(UserAccount)
+admin.site.register(Profile)
 

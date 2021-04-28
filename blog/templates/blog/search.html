@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Search {% endblock %}
+
+
+{% block content %}
+    {% for user in users %}
+        <div class="card">
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <a style="color:black" href="{% url 'user-posts' user.username %}">{{ user.username }}</a>
+                </blockquote>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

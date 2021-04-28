@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from blog.models import Post, Comment
-from account.models import Follow, UserAccount
+from account.models import Follow, Profile
 import sys
 from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -8,15 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Count
 from .forms import NewCommentForm, SearchForm
 from django.contrib.postgres.search import SearchVector
-from django.contrib.auth.models import User
 
 def user_search(request, ):
     form = SearchForm()
     search = request.GET.get('search', '')
     if search:
-        users = User.objects.filter(username__icontains=search)
+        account = User.objects.filter(username__icontains=search)
     else:
-        users = User.objects.all()
+        account = User.objects.all()
     return render(request, 'blog/search.html', locals())
     # query = None
     # results= []
@@ -24,10 +23,10 @@ def user_search(request, ):
     #     form = SearchForm(request.GET)
     #     if form.is_valid():
     #         query = form.cleaned_data['query']
-    #         results = UserAccount.objects.annotate(
+    #         results = Profile.objects.annotate(
     #             search=SearchVector('user',),
     #         ).filter(search=query)
-    #         use = UserAccount.objects.get(user=query)
+    #         use = Profile.objects.get(user=query)
     # return render(request, 'blog/search.html', locals())
 
 

@@ -11,18 +11,17 @@
 #         [email, ]
 #     )
 
-# АТАЙ, АСКАТ, снизу код взят из signals.py файла из того документа
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from .models import UserAccount
+from .models import Profile
 
 
 # signal that gets fired after the user is saved
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        UserAccount.objects.create(user=instance)
+        Profile.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
